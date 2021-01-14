@@ -18,9 +18,9 @@ func main() {
 
 	//fmt.Println(s)
 	x = 137
-	fmt.Println(x)
+	fmt.Println("x =", x)
 
-	y := int(x)
-	fmt.Println(y)
-	fmt.Printf("%T\n", y)
+	y = int(x)
+	fmt.Println("y =", y)
+	fmt.Printf("type = %T\n", y)
 }
