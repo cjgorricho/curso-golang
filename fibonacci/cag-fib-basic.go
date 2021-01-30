@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func fib(n int) int {
@@ -14,9 +15,10 @@ func fib(n int) int {
 }
 
 func main() {
-
+	start := time.Now()
 	fmt.Println(fib(5))
 	fmt.Println(fib(6))
 	fmt.Println(fib(40))
+	fmt.Printf("%dms elapsed\n", time.Since(start).Milliseconds())
 
 }

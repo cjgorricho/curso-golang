@@ -5,11 +5,11 @@ import (
 	"time"
 )
 
-var memo = make([]uint64, 1001)
+var memo = make(map[int]uint64)
 
 func fib(n int) uint64 {
-	if memo[n] != 0 {
-		return memo[n]
+	if v, ok := memo[n]; ok {
+		return v
 	}
 
 	if n <= 2 {
@@ -26,5 +26,4 @@ func main() {
 	fmt.Println(fib(100))
 	fmt.Println(fib(200))
 	fmt.Printf("%.3fms elapsed\n", float64(time.Since(start).Microseconds())/1000)
-
 }
