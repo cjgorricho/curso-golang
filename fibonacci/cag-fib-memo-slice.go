@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-var memo = make([]uint64, 1001)
+var memo = make([]uint64, 11)
 
 func fib(n int) uint64 {
 	if memo[n] != 0 {
@@ -22,9 +22,13 @@ func fib(n int) uint64 {
 
 func main() {
 	start := time.Now()
+	// fmt.Println(fib(10))
+	// fmt.Println(fib(100))
+	fmt.Println(memo)
 	fmt.Println(fib(10))
-	fmt.Println(fib(100))
-	fmt.Println(fib(200))
+	for i, v := range memo {
+		fmt.Println(i, v)
+	}
 	fmt.Printf("%.3fms elapsed\n", float64(time.Since(start).Microseconds())/1000)
 
 }

@@ -22,8 +22,12 @@ func fib(n int) uint64 {
 
 func main() {
 	start := time.Now()
+	// fmt.Println(fib(10))
+	// fmt.Println(fib(100))
+	fmt.Println(memo)
 	fmt.Println(fib(10))
-	fmt.Println(fib(100))
-	fmt.Println(fib(200))
+	for k, v := range memo {
+		fmt.Println(k, v)
+	}
 	fmt.Printf("%.3fms elapsed\n", float64(time.Since(start).Microseconds())/1000)
 }
