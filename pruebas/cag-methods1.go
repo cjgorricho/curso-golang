@@ -10,28 +10,30 @@ type txttransform struct {
 	texttoremove string
 }
 
-func (s txttransform) trimany(tx, txtr string) string {
-	tx = strings.Trim(tx, txtr)
+func (s txttransform) trimany() string {
+	tx := strings.Trim(s.text, s.texttoremove)
 	return tx
 }
 
-func (s txttransform) trimspace(tx string) string {
-	tx = strings.Trim(tx, " ")
+type text string
+
+func (s text) trim() string {
+	tx := strings.Trim(string(s), " ")
 	return tx
 }
 
 func main() {
 	txt1 := txttransform{
-		text:         `  este es el texto  `,
+		text:         `  *+*+* este es el texto limpio *+*+*+*  `,
 		texttoremove: " *+",
 	}
-	txt2 := txttransform{
-		text: `  este es otro texto  `,
-	}
+	txt2 := text(`    este es otro texto limpio     `)
 
-	fmt.Println(txt1)
-	fmt.Printf("Type %T:\n", txt1)
-	fmt.Println(txt1.trimany(txt1.text, txt1.texttoremove))
-	fmt.Println(txt2.trimspace(txt2.text))
+	// fmt.Println(txt1)
+	// fmt.Printf("Type %T:\n", txt1)
+	fmt.Println(txt1.trimany())
+	fmt.Printf("%T\n", txt1.trimany())
+	fmt.Println(txt2.trim())
+	fmt.Printf("%T\n", txt2.trim())
 
 }
