@@ -9,7 +9,7 @@ type person struct {
 }
 
 func (p person) speak() {
-	fmt.Printf("My name is %s %s and my age is %d", p.first, p.last, p.age)
+	fmt.Printf("Mi nombre es %s %s y tengo  %d años", p.first, p.last, p.age)
 }
 
 func main() {
