@@ -7,7 +7,7 @@ import (
 
 // TO DO: econtrar la forma de hacer crecer el SLICE memo de forma flexible
 
-var memo = make([]uint64, 101)
+var memo []uint64
 
 func fib(n int) uint64 {
 
@@ -26,6 +26,8 @@ func fib(n int) uint64 {
 
 func main() {
 	start := time.Now()
-	fmt.Println(fib(100))
+	n := 100
+	memo = make([]uint64, n+1)
+	fmt.Println(fib(n))
 	fmt.Printf("%.3fms elapsed\n", float64(time.Since(start).Microseconds())/1000)
 }
