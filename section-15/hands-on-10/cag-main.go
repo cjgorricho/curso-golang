@@ -6,15 +6,22 @@ import (
 
 func main() {
 	f := foo()
-	fmt.Println(f())
-	fmt.Println(f())
+	fmt.Println("x(f): ", f())
+	fmt.Println("x(f): ", f())
+
 	g := foo()
-	fmt.Println(g())
-	fmt.Println(g())
-	fmt.Println(g())
-	fmt.Println(g())
-	fmt.Println(g())
-	fmt.Println(g())
+	fmt.Println("x(g): ", g())
+	fmt.Println("x(g): ", g())
+	fmt.Println("x(g): ", g())
+	fmt.Println("x(g): ", g())
+	fmt.Println("x(g): ", g())
+	fmt.Println("x(g): ", g())
+
+	fmt.Println("x(f): ", f())
+	fmt.Println("x(f): ", f())
+
+	fmt.Println("x(f): ", f())
+	fmt.Println("x(f): ", f())
 }
 
 func foo() func() int {
