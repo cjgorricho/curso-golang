@@ -12,7 +12,7 @@ func main() {
 	}
 
 	fmt.Println(p1)
-	cambio(&p1)
+	cambio(&p1) // se pasa la drieccion a la variable
 	fmt.Println(p1)
 
 }
