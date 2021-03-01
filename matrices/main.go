@@ -54,9 +54,9 @@ func mult(mat, mat1, mat2 [][]int) [][]int {
 
 func printmat(m ...[][]int) {
 	for m, mat := range m {
-		fmt.Printf("Matriz %v\nTipo: %T\nTamaño :%v\nCapacidad :%v\n\n", m+1, mat, len(mat), cap(mat))
+		fmt.Printf("\nMatriz %v\nTipo: %T\nTamaño :%v\nCapacidad :%v\n\n", m+1, mat, len(mat), cap(mat))
 
-		if len(mat) <= 10 && len(mat[0]) <= 10 {
+		if len(mat) <= 50 && len(mat[0]) <= 50 {
 			fmt.Printf("Matriz\n")
 			for i, mt := range mat {
 				fmt.Printf("%d\t%v\n", i, mt)
@@ -69,9 +69,12 @@ func main() {
 	start := time.Now()
 	var m1, m2 [][]int
 	var m3 [][]int
-	m1 = randmat(m1, 5, 300)
-	m2 = randmat(m2, 300, 10)
+	m1 = ones(m1, 500, 300000)
+	tm1 := time.Since(start).Milliseconds()
+	m2 = ones(m2, 300000, 100)
+	tm2 := time.Since(start).Milliseconds()
 	m3 = mult(m3, m1, m2)
-	fmt.Printf("\n%.3f seconds elapsed\n\n", time.Since(start).Seconds())
+	tm3 := time.Since(start).Milliseconds()
+	fmt.Printf("\nTiempo matriz 1: %v\nTiempo matriz 2: %v\nTiempo matriz 3: %v\nTiempo total: %v \n\n", tm1, tm2-tm1, tm3-tm2, tm3)
 	printmat(m1, m2, m3)
 }
