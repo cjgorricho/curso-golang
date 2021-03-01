@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-var memo = make(map[int]uint64)
+var memo map[int]uint64
 
 func fib(n int) uint64 {
 
