@@ -40,45 +40,41 @@ func main() {
 
 	//fmt.Println(names)
 
-	for i := 0; i < 50000; i++ {
-		wg.Add(1)
-		go func(ind int) {
-			rand.Seed(time.Now().UnixNano())
-			index := rand.Intn(len(names))
-			nm := names[index]
+	for j := 0; j < 10; j++ {
+		for i := 0; i < 5000; i++ {
+			wg.Add(1)
+			go func(ind int) {
+				rand.Seed(time.Now().UnixNano())
+				index := rand.Intn(len(names))
+				nm := names[index]
 
-			rand.Seed(time.Now().UnixNano())
-			ag := rand.Intn(50)
+				rand.Seed(time.Now().UnixNano())
+				//time.Sleep(5 * time.Millisecond)
+				ag := rand.Intn(50)
 
-			field := Author{
-				Name: nm,
-				Age:  ag,
-			}
-
-			json, err := json.Marshal(field)
-			if err != nil {
-				fmt.Println(err)
-			}
-
-			id := "ID"
-
-			for {
-				id += "0"
-				if len(id)+len(string(strconv.Itoa(ind))) == 10 {
-					id += strconv.Itoa(ind)
-					break
+				field := Author{
+					Name: nm,
+					Age:  ag,
 				}
-			}
 
-			//fmt.Println(id)
+				json, err := json.Marshal(field)
+				if err != nil {
+					fmt.Println(err)
+				}
 
-			err = client.Set(id, json, 0).Err()
-			if err != nil {
-				fmt.Println(err)
-			}
-			wg.Done()
-		}(i)
+				id := "ID-Set"
+				id += strconv.Itoa(ind)
 
+				//fmt.Println(id)
+
+				err = client.SAdd(id, json).Err()
+				if err != nil {
+					fmt.Println(err)
+				}
+				wg.Done()
+			}(j)
+
+		}
 	}
 	wg.Wait()
 
