@@ -12,8 +12,10 @@ func main() {
 		"no_dr":           []string{"Being evil", "Ice cream", "Sunsets"},
 	}
 	//estructura para agregar m[nueva clave]=[]tipo{"ad1","ad2","ad3"}
-	m["Carlos"] = []string{"ajedrez", "cine", "ciencia", "Go", "futbol"}
-
+	//usando ``, se pueden combinar
+	m["Carlos"] = []string{"ajedrez", "cine", "ciencia", "futbol"}
+	//delete(map, "key")
+	delete(m, `moneypenny_miss`)
 	//fmt.Println(m)
 	//En el rango m leer registro k
 	for k, v := range m {
@@ -23,7 +25,6 @@ func main() {
 			fmt.Println("\t", i, v2)
 		}
 		fmt.Println()
-
 	}
-	fmt.Println(m)
+
 }
