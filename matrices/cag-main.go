@@ -69,9 +69,9 @@ func main() {
 	start := time.Now()
 	var m1, m2 [][]int
 	var m3 [][]int
-	m1 = ones(m1, 500, 300000)
+	m1 = ones(m1, 50, 3000)
 	tm1 := time.Since(start).Milliseconds()
-	m2 = ones(m2, 300000, 100)
+	m2 = ones(m2, 3000, 10)
 	tm2 := time.Since(start).Milliseconds()
 	m3 = mult(m3, m1, m2)
 	tm3 := time.Since(start).Milliseconds()
