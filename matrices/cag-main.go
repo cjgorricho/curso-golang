@@ -69,12 +69,12 @@ func main() {
 	start := time.Now()
 	var m1, m2 [][]int
 	var m3 [][]int
-	m1 = ones(m1, 50, 3000)
+	m1 = ones(m1, 500, 30000)
 	tm1 := time.Since(start).Milliseconds()
-	m2 = ones(m2, 3000, 10)
+	m2 = ones(m2, 30000, 100)
 	tm2 := time.Since(start).Milliseconds()
 	m3 = mult(m3, m1, m2)
 	tm3 := time.Since(start).Milliseconds()
-	fmt.Printf("\nTiempo matriz 1: %v\nTiempo matriz 2: %v\nTiempo matriz 3: %v\nTiempo total: %v \n\n", tm1, tm2-tm1, tm3-tm2, tm3)
+	fmt.Printf("\nTiempo matriz 1: %v ms\nTiempo matriz 2: %v ms\nTiempo matriz 3: %v ms\nTiempo total: %v ms\n\n", tm1, tm2-tm1, tm3-tm2, tm3)
 	printmat(m1, m2, m3)
 }

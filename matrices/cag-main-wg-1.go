@@ -145,6 +145,6 @@ func main() {
 	tm2 := time.Since(start).Milliseconds()
 	m3 = mult1(m3, m1, m2)
 	tm3 := time.Since(start).Milliseconds()
-	fmt.Printf("\nTiempo matriz 1: %v\nTiempo matriz 2: %v\nTiempo matriz 3: %v\nTiempo total: %v \n\n", tm1, tm2-tm1, tm3-tm2, tm3)
+	fmt.Printf("\nTiempo matriz 1: %v ms\nTiempo matriz 2: %v ms\nTiempo matriz 3: %v ms\nTiempo total: %v ms\n\n", tm1, tm2-tm1, tm3-tm2, tm3)
 	printmat(m1, m2, m3)
 }
