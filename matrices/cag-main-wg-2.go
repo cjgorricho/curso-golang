@@ -63,7 +63,7 @@ func ones(mat [][]int, rows, cols int) [][]int {
 }
 
 func mult1(mat, mat1, mat2 [][]int) [][]int {
-	var sto = make(map[int][]int) //variable global a todas las go routines
+	var sto = make(map[int][]int) //variable global a todas las go routines que construyrn filas de la matriz resultado
 	var wg sync.WaitGroup
 	var mu sync.Mutex
 	wg.Add(len(mat1))
