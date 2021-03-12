@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
+	"time"
 )
 
 // Concurrencia perfecta - en este ejemplo se declara la funciòn concurrente de manera explìcita (func imprimir(...)) y se llama de forma explìcita en el cuerpo del programa (go imprimir(...))
@@ -22,6 +24,8 @@ func main() {
 }
 
 func imprimir(ind int) {
+	r := rand.New(rand.NewSource(time.Now().UnixNano())).Int31()
+	time.Sleep(time.Duration(r)) // payload
 	fmt.Println(ind)
 	wg.Done()
 }
