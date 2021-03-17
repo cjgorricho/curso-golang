@@ -28,7 +28,7 @@ Indicacciones generales:
 
 Esperamos que este repositorio sea de utilidad para todos los entusiastas incursionando en Golang.
 
-También estamos desarrolando un documentos con nuestras notas del curso, el cual se puede acceder aquí: https://docs.google.com/document/d/1Abq9yQg7n2yZXBeP1TMbfuJgVOExGJ-GnI3r70FaHfo/edit?usp=sharing
+También estamos desarrolando un documento con nuestras notas del curso, el cual se puede acceder aquí: https://docs.google.com/document/d/1Abq9yQg7n2yZXBeP1TMbfuJgVOExGJ-GnI3r70FaHfo/edit?usp=sharing
 
 CARLOS A.
 
