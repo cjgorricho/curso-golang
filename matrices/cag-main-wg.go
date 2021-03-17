@@ -62,7 +62,7 @@ func ones(mat [][]int, rows, cols int) [][]int {
 	return mat
 }
 
-func mult1(mat, mat1, mat2 [][]int) [][]int {
+func multconc(mat, mat1, mat2 [][]int) [][]int {
 	var sto = make(map[int][]int) //variable global a todas las go routines
 	var wg sync.WaitGroup
 	var mu sync.Mutex
@@ -102,7 +102,7 @@ func mult1(mat, mat1, mat2 [][]int) [][]int {
 	return mat
 }
 
-func mult(mat, mat1, mat2 [][]int) [][]int {
+func multnaive(mat, mat1, mat2 [][]int) [][]int {
 
 	for _, mt1 := range mat1 {
 		var row []int
@@ -137,14 +137,15 @@ func printmat(m ...[][]int) {
 
 func main() {
 	start := time.Now()
-	var m1, m2 [][]int
-	var m3 [][]int
-	m1 = ones(m1, 500, 30000)
+	var m1, m2, m3, m4 [][]int
+	m1 = ones(m1, 50, 30000)
 	tm1 := time.Since(start).Milliseconds()
-	m2 = ones(m2, 30000, 100)
+	m2 = ones(m2, 30000, 10)
 	tm2 := time.Since(start).Milliseconds()
-	m3 = mult1(m3, m1, m2)
+	m3 = multnaive(m3, m1, m2)
 	tm3 := time.Since(start).Milliseconds()
-	fmt.Printf("\nTiempo matriz 1: %v ms\nTiempo matriz 2: %v ms\nTiempo matriz 3: %v ms\nTiempo total: %v ms\n\n", tm1, tm2-tm1, tm3-tm2, tm3)
-	printmat(m1, m2, m3)
+	m4 = multconc(m4, m1, m2)
+	tm4 := time.Since(start).Milliseconds()
+	fmt.Printf("\nTiempo matriz 1: \t%v ms\nTiempo matriz 2: \t%v ms\nTiempo matriz naive: \t%v ms\nTiempo matriz conc: \t%v ms\nTiempo total: \t%v ms\n\n", tm1, tm2-tm1, tm3-tm2, tm4-tm3, tm4)
+	printmat(m1, m2, m3, m4)
 }

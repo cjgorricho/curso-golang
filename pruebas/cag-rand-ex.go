@@ -34,8 +34,8 @@ func main() {
 	// Int31, Int63, and Uint32 generate values of the given width.
 	// The Int method (not shown) is like either Int31 or Int63
 	// depending on the size of 'int'.
-	show("Int31", time.Duration(r.Int31()), r.Int31(), r.Int31())
-	show("Int63", time.Duration(r.Int63()), r.Int63(), r.Int63())
+	show("Int31", r.Int31(), r.Int31(), r.Int31())
+	show("Int63", r.Int63(), r.Int63(), r.Int63())
 	show("Uint32", r.Uint32(), r.Uint32(), r.Uint32())
 
 	// Intn, Int31n, and Int63n limit their output to be < n.
