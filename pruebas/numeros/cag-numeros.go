@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
+	"strconv"
 	"time"
 )
 
-var aleatorio []int64
-
 /*
-Todo lo que està en este bloque queda como un comenario de varias lìneas
-*/
+
+
+ */
 
 var numeros = map[int64]string{
 	1:    "uno",
@@ -36,12 +37,12 @@ var numeros = map[int64]string{
 	21:   "veintiuno",
 	22:   "veintidós",
 	23:   "veintitrés",
-	24: 		"veinticuatro",
-	25: 		"veinticinco",
-	26: "veintiseis",
-	27: "veintisiete",
-	28: ""
-
+	24:   "veinticuatro",
+	25:   "veinticinco",
+	26:   "veintiseis",
+	27:   "veintisiete",
+	28:   "veintiocho",
+	29:   "veintinueve",
 	30:   "treinta",
 	40:   "cuarenta",
 	50:   "cincuenta",
@@ -50,6 +51,7 @@ var numeros = map[int64]string{
 	80:   "ochenta",
 	90:   "noventa",
 	100:  "cien",
+	101:  "ciento",
 	200:  "doscientos",
 	300:  "trescientos",
 	400:  "cuatrocientos",
@@ -58,22 +60,71 @@ var numeros = map[int64]string{
 	700:  "setecientos",
 	800:  "ochocientos",
 	900:  "novecientos",
-	1000: "mil",
+	1e3:  "mil",
 	1e6:  "millón",
+	2e6:  "millones",
 	1e12: "billón",
+	2e12: "billones",
+	1e18: "trillón",
+	2e18: "trillones",
 }
 
-func main() {
-	limite := 10
+var aleatorio []int
 
-	for i := 1; i <= limite; i++ {
-		r := rand.New(rand.NewSource(time.Now().UnixNano())).Int63()
-		time.Sleep(5 * time.Millisecond)
+func main() {
+	limite := 5
+	for i := 0; i < limite; i++ {
+		r := rand.New(rand.NewSource(time.Now().UnixNano())).Intn(math.MaxInt64)
+		time.Sleep(5 * time.Microsecond)
 		aleatorio = append(aleatorio, r)
 	}
+
 	fmt.Println(aleatorio)
 	fmt.Println()
 
-	fmt.Println()
+	for _, num := range aleatorio {
+		fmt.Printf("%v\t%T\n", num, num)
+		snum := strconv.Itoa(int(num))
+		fmt.Println("Numero de dígitos:\t", len(snum))
+		fmt.Println("Grupos de 3:\t\t", len(snum)/3)
+		fmt.Println("Residuo:\t\t", len(snum)%3)
 
+		fmt.Println()
+		fmt.Println("Ascendente:")
+		fmt.Print("Ind: ")
+		for i := 0; i < len(snum); i++ {
+			fmt.Printf("%2v|", i)
+		}
+		fmt.Println()
+		fmt.Print("     ")
+		for i := 0; i < len(snum); i++ {
+			fmt.Printf("---")
+		}
+		fmt.Println()
+		fmt.Print("Val: ")
+		for i := 0; i < len(snum); i++ {
+			fmt.Printf("%2s|", string(snum[i]))
+		}
+		fmt.Println()
+		fmt.Println()
+
+		fmt.Println("Descendente:")
+		fmt.Print("Ind: ")
+		for i := len(snum) - 1; i >= 0; i-- {
+			fmt.Printf("%2v|", i)
+		}
+		fmt.Println()
+		fmt.Print("     ")
+		for i := len(snum) - 1; i >= 0; i-- {
+			fmt.Printf("---")
+		}
+		fmt.Println()
+		fmt.Print("Val: ")
+		for i := len(snum) - 1; i >= 0; i-- {
+			fmt.Printf("%2s|", string(snum[i]))
+		}
+		fmt.Println()
+		fmt.Println()
+
+	}
 }
