@@ -5,6 +5,7 @@ import (
 	"math"
 	"math/rand"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -74,7 +75,7 @@ var aleatorio []int
 func main() {
 	limite := 5
 	for i := 0; i < limite; i++ {
-		r := rand.New(rand.NewSource(time.Now().UnixNano())).Intn(math.MaxInt64)
+		r := rand.New(rand.NewSource(time.Now().UnixNano())).Intn(math.MaxInt32)
 		time.Sleep(5 * time.Microsecond)
 		aleatorio = append(aleatorio, r)
 	}
@@ -82,9 +83,13 @@ func main() {
 	fmt.Println(aleatorio)
 	fmt.Println()
 
-	for _, num := range aleatorio {
-		fmt.Printf("%v\t%T\n", num, num)
-		snum := strconv.Itoa(int(num))
+	for j, num := range aleatorio {
+
+		fmt.Printf("Aleatorio %d:\n", j)
+		fmt.Printf("%v\t\t%T\n", num, num)
+
+		snum := strconv.Itoa(num)
+
 		fmt.Println("Numero de dígitos:\t", len(snum))
 		fmt.Println("Grupos de 3:\t\t", len(snum)/3)
 		fmt.Println("Residuo:\t\t", len(snum)%3)
@@ -108,22 +113,36 @@ func main() {
 		fmt.Println()
 		fmt.Println()
 
-		fmt.Println("Descendente:")
-		fmt.Print("Ind: ")
-		for i := len(snum) - 1; i >= 0; i-- {
-			fmt.Printf("%2v|", i)
+		//gdt := len(snum) / 3
+		residuo := len(snum) % 3
+		var b strings.Builder
+
+		switch residuo {
+		case 2:
+			fmt.Println("Residuo 2")
+			fmt.Fprintf(&b, "0")
+		case 1:
+			fmt.Println("Residuo 1")
+			fmt.Fprintf(&b, "00")
+
+		default:
+			fmt.Println("Residuo 0")
 		}
+
+		b.WriteString(snum)
+
+		fmt.Println("String ajustado: ", b.String())
+		fmt.Println("Numero dígitos ajust:\t", len(b.String()))
+		fmt.Println("Grupos de 3 ajustado:\t", len(b.String())/3)
+		fmt.Println("Residuo ajustado:\t", len(b.String())%3)
+
 		fmt.Println()
-		fmt.Print("     ")
-		for i := len(snum) - 1; i >= 0; i-- {
-			fmt.Printf("---")
+
+		astr := b.String()
+		for i := 0; i < len(astr)/3; i++ {
+			fmt.Println(astr[3*i : 3*i+3])
 		}
-		fmt.Println()
-		fmt.Print("Val: ")
-		for i := len(snum) - 1; i >= 0; i-- {
-			fmt.Printf("%2s|", string(snum[i]))
-		}
-		fmt.Println()
+
 		fmt.Println()
 
 	}
