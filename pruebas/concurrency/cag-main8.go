@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"sync"
 	"time"
@@ -15,11 +16,11 @@ var aleatorio []int32
 
 func main() {
 
-	limite := 50
+	limite := 10
 
 	for i := 1; i <= limite; i++ {
-		r := rand.New(rand.NewSource(time.Now().UnixNano())).Int31()
-		time.Sleep(5 * time.Millisecond)
+		r := rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(math.MaxInt32)
+		time.Sleep(5 * time.Nanosecond)
 		aleatorio = append(aleatorio, r)
 	}
 	fmt.Println(aleatorio)
