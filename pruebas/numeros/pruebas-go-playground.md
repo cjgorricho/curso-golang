@@ -7,6 +7,9 @@ https://play.golang.org/p/FU0FKZuPW5S
 3. Ajuste de string a un numero exacto de caracteres de manera que len(string) % 3 == 0
 https://play.golang.org/p/iAsaSvJbLvU
 
+4. Primera version de subrutinas concurrentes (Go Routines)
+https://play.golang.org/p/Kyif0qkX2xi
 
-
+5. Subrutinas mejoradas
+https://play.golang.org/p/yhV7aT1hwRY
 
