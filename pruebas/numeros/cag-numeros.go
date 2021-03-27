@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -75,9 +76,11 @@ var posicion = map[int]string{
 }
 
 var aleatorio []int
+var wg sync.WaitGroup
+var mu sync.Mutex
 
 func main() {
-	limite := 5
+	limite := 10
 	for i := 0; i < limite; i++ {
 		r := rand.New(rand.NewSource(time.Now().UnixNano())).Intn(math.MaxInt64)
 		time.Sleep(5 * time.Microsecond)
@@ -143,10 +146,65 @@ func main() {
 		fmt.Println()
 
 		astr := b.String()
-		for i := 0; i < len(astr)/3; i++ {
-			fmt.Println(astr[3*i : 3*i+3])
-		}
+		//var lit map[int]string
 
+		for i := 1; i <= len(astr)/3; i++ {
+			wg.Add(1)
+			var trio string
+			trio = astr[3*(i-1) : 3*(i-1)+3]
+			pos := len(astr) - (i * 3)
+			fmt.Println("Trio, long, posición(1eN): ", i, trio, len(trio), pos)
+
+			go func(tri string, ind, ps int) {
+				fmt.Printf("\nSubrutina %v inicia...\n", ind)
+				var ba, bb, bc, literal strings.Builder
+
+				a, b, c, d := string(tri[0]), string(tri[1]), string(tri[2]), string(tri[1:3])
+
+				fmt.Fprint(&ba, a)
+				fmt.Fprint(&bb, b)
+				fmt.Fprint(&bc, c)
+
+				ba.WriteString("00")
+				bb.WriteString("0")
+
+				astr := ba.String()
+				bstr := bb.String()
+				cstr := bc.String()
+
+				fmt.Println("Trio:", tri)
+				fmt.Printf("Caracter 1: %s\n", astr)
+				fmt.Printf("Caracter 2: %s\n", bstr)
+				fmt.Printf("Caracter 3: %s\n", cstr)
+				fmt.Printf("Caracter 4: %s\n", d)
+				fmt.Println("Posición:", ps)
+
+				if astr != "000" {
+					if astr == "100" && d != "00" {
+						astr = "101"
+					}
+				}
+
+				literal.WriteString(numeros[astr])
+
+				if d < "29" {
+					literal.WriteString(" ")
+					literal.WriteString(numeros[strings.TrimLeft(d, "0")])
+				} else {
+					literal.WriteString(" ")
+					literal.WriteString(numeros[bstr])
+					literal.WriteString(" y ")
+					literal.WriteString(numeros[cstr])
+				}
+
+				fmt.Println("Literal: ", literal.String())
+
+				fmt.Printf("...Subrutina %v termina\n\n", ind)
+				wg.Done()
+			}(trio, i, pos)
+
+		}
+		wg.Wait()
 		fmt.Println()
 
 	}
