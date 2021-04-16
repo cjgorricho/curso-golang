@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -66,12 +67,20 @@ func main() {
 					fmt.Println(err)
 				}
 
-				id := "ID-Zset"
-				id += strconv.Itoa(ind)
+				var id strings.Builder
+				id.WriteString("ID-Zset")
+
+				for {
+					id.WriteString("0")
+					if id.Len()+len(string(strconv.Itoa(ind))) == 10 {
+						id.WriteString(strconv.Itoa(ind))
+						break
+					}
+				}
 
 				//fmt.Println(id)
 
-				err = client.ZAdd(id, redis.Z{score, json}).Err()
+				err = client.ZAdd(id.String(), redis.Z{score, json}).Err()
 				if err != nil {
 					fmt.Println(err)
 				}
