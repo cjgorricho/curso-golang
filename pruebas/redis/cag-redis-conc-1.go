@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -15,7 +16,11 @@ import (
 type Author struct {
 	Name      string `json:"name"`
 	Age       int    `json:"age"`
+<<<<<<< HEAD
 	TimeStamp int64  `json:"time"`
+=======
+	TimeStamp int    `json:"time"`
+>>>>>>> bb15ae39f5d6019cac2ca3ffd0dffcba35427253
 }
 
 var names = []string{
@@ -51,7 +56,11 @@ func main() {
 			rand.Seed(time.Now().UnixNano())
 			ag := rand.Intn(50)
 
+<<<<<<< HEAD
 			ts := time.Now().UnixNano()
+=======
+			ts := int(time.Now().UnixNano())
+>>>>>>> bb15ae39f5d6019cac2ca3ffd0dffcba35427253
 
 			field := Author{
 				Name:      nm,
@@ -64,19 +73,23 @@ func main() {
 				fmt.Println(err)
 			}
 
-			id := "ID-"
+			var id strings.Builder
+			id.WriteString("ID-")
 
 			for {
-				id += "0"
-				if len(id)+len(string(strconv.Itoa(ind))) == 10 {
-					id += strconv.Itoa(ind)
+				id.WriteString("0")
+				if id.Len()+len(string(strconv.Itoa(ind))) == 10 {
+					id.WriteString(strconv.Itoa(ind))
 					break
 				}
 			}
 
 			//fmt.Println(id)
 
-			err = client.Set(id, json, 0).Err()
+			var tex time.Duration
+			tex = 0 * 15 * 1e9 // dias * hrs * min * segundos * nanosegundos (1e9)
+
+			err = client.Set(id.String(), json, tex).Err()
 			if err != nil {
 				fmt.Println(err)
 			}

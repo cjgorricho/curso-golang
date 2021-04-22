@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -25,6 +26,8 @@ var names = []string{
 }
 
 var wg sync.WaitGroup
+
+//var mu sync.Mutex
 
 func main() {
 
@@ -54,20 +57,24 @@ func main() {
 				Age:  ag,
 			}
 
-			id := "ID-H"
+			var id strings.Builder
+			id.WriteString("ID-Hash")
+
 			for {
-				id += "0"
-				if len(id)+len(string(strconv.Itoa(ind))) == 10 {
-					id += strconv.Itoa(ind)
+				id.WriteString("0")
+				if id.Len()+len(string(strconv.Itoa(ind))) == 10 {
+					id.WriteString(strconv.Itoa(ind))
 					break
 				}
 			}
 
 			//fmt.Println(id)
 
-			err := client.HMSet(id, map[string]interface{}{"Name": field.Name, "Age": field.Age}).Err()
+			//mu.Lock()
+			err := client.HMSet(id.String(), map[string]interface{}{"Name": field.Name, "Age": field.Age}).Err()
+			//mu.Unlock()
 			if err != nil {
-				fmt.Println(err)
+				fmt.Println("Error escribiendo a la BD: ", err)
 			}
 			wg.Done()
 		}(i)

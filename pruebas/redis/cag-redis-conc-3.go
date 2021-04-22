@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -62,12 +63,20 @@ func main() {
 					fmt.Println(err)
 				}
 
-				id := "ID-Set"
-				id += strconv.Itoa(ind)
+				var id strings.Builder
+				id.WriteString("ID-Set")
+
+				for {
+					id.WriteString("0")
+					if id.Len()+len(string(strconv.Itoa(ind))) == 10 {
+						id.WriteString(strconv.Itoa(ind))
+						break
+					}
+				}
 
 				//fmt.Println(id)
 
-				err = client.SAdd(id, json).Err()
+				err = client.SAdd(id.String(), json).Err()
 				if err != nil {
 					fmt.Println(err)
 				}

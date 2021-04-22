@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -13,8 +14,9 @@ import (
 )
 
 type Author struct {
-	Name string `json:"name"`
-	Age  int    `json:"age"`
+	Name      string `json:"name"`
+	Age       int    `json:"age"`
+	TimeStamp int    `json:"time"`
 }
 
 var names = []string{
@@ -52,9 +54,12 @@ func main() {
 				time.Sleep(5 * time.Millisecond)
 				ag := rand.Intn(50)
 
+				ts := int(time.Now().UnixNano())
+
 				field := Author{
-					Name: nm,
-					Age:  ag,
+					Name:      nm,
+					Age:       ag,
+					TimeStamp: ts,
 				}
 
 				json, err := json.Marshal(field)
@@ -62,12 +67,20 @@ func main() {
 					fmt.Println(err)
 				}
 
-				id := "ID-List"
-				id += strconv.Itoa(ind)
+				var id strings.Builder
+				id.WriteString("ID-List")
+
+				for {
+					id.WriteString("0")
+					if id.Len()+len(string(strconv.Itoa(ind))) == 10 {
+						id.WriteString(strconv.Itoa(ind))
+						break
+					}
+				}
 
 				//fmt.Println(id)
 
-				err = client.LPush(id, json).Err()
+				err = client.LPush(id.String(), json).Err()
 				if err != nil {
 					fmt.Println(err)
 				}
