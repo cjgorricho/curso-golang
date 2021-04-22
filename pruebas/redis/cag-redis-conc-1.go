@@ -13,8 +13,9 @@ import (
 )
 
 type Author struct {
-	Name string `json:"name"`
-	Age  int    `json:"age"`
+	Name      string `json:"name"`
+	Age       int    `json:"age"`
+	TimeStamp int64  `json:"time"`
 }
 
 var names = []string{
@@ -50,9 +51,12 @@ func main() {
 			rand.Seed(time.Now().UnixNano())
 			ag := rand.Intn(50)
 
+			ts := time.Now().UnixNano()
+
 			field := Author{
-				Name: nm,
-				Age:  ag,
+				Name:      nm,
+				Age:       ag,
+				TimeStamp: ts,
 			}
 
 			json, err := json.Marshal(field)
