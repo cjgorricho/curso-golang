@@ -36,7 +36,7 @@ func main() {
 	client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "",
-		DB:       0,
+		DB:       1,
 	})
 
 	//fmt.Println(names)
