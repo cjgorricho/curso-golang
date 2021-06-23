@@ -6,6 +6,8 @@ require (
 	github.com/PuerkitoBio/goquery v1.6.1 // indirect
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.6 // indirect
+	github.com/dghubble/go-twitter v0.0.0-20201011215211-4b180d0cc78d // indirect
+	github.com/dghubble/oauth1 v0.7.0 // indirect
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redis/redis/v8 v8.6.0 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
