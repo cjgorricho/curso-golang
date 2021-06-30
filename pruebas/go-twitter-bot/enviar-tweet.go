@@ -27,6 +27,7 @@ type Credentials struct {
 // this will take in a pointer to a Credential struct which will contain
 // everything needed to authenticate and return a pointer to a twitter Client
 // or an error
+
 func getClient(creds *Credentials) (*twitter.Client, error) {
 	// Pass in your consumer key (API Key) and your Consumer Secret (API Secret)
 	config := oauth1.NewConfig(creds.ConsumerKey, creds.ConsumerSecret)
@@ -75,7 +76,7 @@ func main() {
 	fmt.Printf("%+v\n", client)
 
 	// Send tweet
-	tweet, resp, err := client.Statuses.Update("Enviando tuit con Rafa y Gabriel", nil)
+	tweet, resp, err := client.Statuses.Update("Twitter enviado por BOT", nil)
 	if err != nil {
 		log.Println(err)
 	}

@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
-	"time"
 
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
@@ -62,7 +60,7 @@ func main() {
 		ConsumerSecret:    os.Getenv("CONSUMER_SECRET"),
 	}
 
-	log.Printf("%+v\n", creds)
+	//log.Printf("%+v\n", creds)
 
 	client, err := getClient(&creds)
 	if err != nil {
@@ -70,35 +68,39 @@ func main() {
 		log.Println(err)
 	}
 
-	tweets, resp, err := client.Timelines.UserTimeline(&twitter.UserTimelineParams{
+	// Get ID list of a given user (by screenname or @handle)
+	idlist, resp, err := client.Followers.IDs(&twitter.FollowerIDParams{
 		ScreenName: "alvarouribevel",
-		Count:      200,
 	})
 
 	if err != nil {
-		log.Println(err)
+		log.Print(err)
 	}
-	log.Printf("Largo del Header: %+v\n", len(resp.Header))
-	log.Printf("Numero de tweets: %+v\n", len(tweets))
 
-	fmt.Println("Rate limit remaining:", resp.Header["X-Rate-Limit-Remaining"][0])
-	ratereset, err := strconv.ParseInt(resp.Header["X-Rate-Limit-Reset"][0], 10, 64)
-	if err != nil {
-		log.Println(err)
-	}
-	ratetime := time.Unix(ratereset, 0)
-	fmt.Printf("Rate limit reset: %v\n", ratetime)
+	fmt.Println()
+	log.Printf("%+v\n", resp)
 
-	fmt.Println("App limit remaining:", resp.Header["X-App-Rate-Limit-Remaining"][0])
-	appreset, err := strconv.ParseInt(resp.Header["X-App-Rate-Limit-Reset"][0], 10, 64)
-	if err != nil {
-		log.Println(err)
-	}
-	apptime := time.Unix(appreset, 0)
-	fmt.Printf("Rate limit reset: %v\n", apptime)
+	//fmt.Printf("\n%+v\n%+v\n", len(idlist.IDs), idlist.IDs)
 
-	for i, m := range tweets {
-		fmt.Printf("Tuit %v: @%+v %+v %+v %v\n", i, m.User.ScreenName, m.CreatedAt, m.ID, m.Text)
+	for i, v := range idlist.IDs {
+		if i == 100 {
+			break
+		}
+
+		user, resp, err := client.Users.Show(&twitter.UserShowParams{
+			UserID: v,
+		})
+
+		if err != nil {
+			log.Print(err)
+		}
+
+		if i == 99 {
+			fmt.Println(resp)
+		}
+
+		fmt.Println(i, v, user.ScreenName, user.StatusesCount, user.FriendsCount, user.FollowersCount, user.CreatedAt)
+		fmt.Println()
 	}
 
 }
