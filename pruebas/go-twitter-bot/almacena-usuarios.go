@@ -86,28 +86,4 @@ func main() {
 	//	fmt.Println(err)
 	//}
 
-	//fmt.Printf("\n%+v\n%+v\n", len(idlist.IDs), idlist.IDs)
-
-	for i, v := range idlist.IDs {
-		lim := 100
-		if i == lim {
-			break
-		}
-
-		user, resp, err := client.Users.Show(&twitter.UserShowParams{
-			UserID: v,
-		})
-
-		if err != nil {
-			log.Print(err)
-		}
-
-		if i == lim-1 {
-			fmt.Println(resp)
-		}
-
-		fmt.Println(i, v, user.ScreenName, user.StatusesCount, user.FriendsCount, user.FollowersCount, user.CreatedAt)
-		fmt.Println()
-	}
-
 }
