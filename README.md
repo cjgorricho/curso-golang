@@ -33,3 +33,5 @@ También estamos desarrolando un documento con nuestras notas del curso, el cual
 CARLOS A.
 
 CARLOS J.
+
+Practicando con nuevo computador
