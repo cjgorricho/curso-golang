@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/gocolly/colly"
 )
@@ -26,6 +27,7 @@ func main() {
 	c := colly.NewCollector()
 
 	liga := ""
+	start := time.Now()
 
 	c.OnHTML(`div#USInplay-tab-FOOT div.table-row.row-wrap`, func(e *colly.HTMLElement) {
 
@@ -51,4 +53,7 @@ func main() {
 	c.Visit("https://apuestas.wplay.co/es")
 
 	log.Printf("Scraping finished, check file %q for results\n", fName)
+
+	secs := time.Since(start).Seconds()
+	fmt.Printf("Tiempo total: %v segs", secs)
 }
