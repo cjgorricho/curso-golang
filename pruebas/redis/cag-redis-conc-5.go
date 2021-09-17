@@ -71,6 +71,7 @@ func main() {
 			//fmt.Println(id)
 
 			//mu.Lock()
+			arg := 
 			err := client.HMSet(id.String(), map[string]interface{}{"Name": field.Name, "Age": field.Age}).Err()
 			//mu.Unlock()
 			if err != nil {

@@ -57,6 +57,7 @@ func main() {
 				ts := int(time.Now().UnixNano())
 
 				field := Author{
+
 					Name:      nm,
 					Age:       ag,
 					TimeStamp: ts,
