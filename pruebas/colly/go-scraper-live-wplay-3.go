@@ -28,6 +28,10 @@ func main() {
 
 	liga := ""
 	start := time.Now()
+	cons := 0
+	// Write CSV header
+	writer.Write([]string{"TiemStamp", "BettingHouse", "League_Tournament", "EventID", "EventName", "EventScore", "EventTime", "OddsLocal", "OddsDraw", "OddsVisitor"})
+	fmt.Println("#", "TimeStamp", "BettingHouse", "League_Tournament", "EventID", "EventName", "EventScore", "EventTime", "OddsLocal", "OddsDraw", "OddsVisitor")
 
 	c.OnHTML(`div#USInplay-tab-FOOT div.table-row.row-wrap`, func(e *colly.HTMLElement) {
 
@@ -36,14 +40,27 @@ func main() {
 				liga = e.ChildText(`div.ev-type-header`)
 			}
 		} else {
+			cons = cons + 1
+			timestamp := time.Now().Round(time.Second)
 			eventid := e.Attr("data-mkt_id")
 			eventinfo := strings.Split(e.ChildText(`div[class="team-score"]`), "\n")
+			eventtime := e.ChildText(`span.clock_mode_forward`)
+			eventperiod := e.ChildText(`span.period`)
+			//eventodds :=
+
 			fmt.Printf(
-				"%s, %s, %s - %s\n",
+				"%d - %v, %s, %s, %s, %s - %s, %s-%s, %s, %s \n",
+				cons,
+				timestamp,
+				"WPlay",
 				liga,
 				eventid,
 				eventinfo[1],
 				eventinfo[4],
+				eventinfo[0],
+				eventinfo[3],
+				eventtime,
+				eventperiod,
 			)
 
 		}
