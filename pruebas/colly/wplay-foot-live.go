@@ -26,6 +26,12 @@ func main() {
 	writer := csv.NewWriter(file)
 	defer writer.Flush()
 
+	liga := ""
+	start := time.Now()
+	cons := 0
+	eventodds := make([]string, 3, 5)
+	var data [][]string
+
 	c := colly.NewCollector()
 
 	c.WithTransport(&http.Transport{
@@ -40,14 +46,6 @@ func main() {
 		TLSHandshakeTimeout:   25 * time.Second,
 		ExpectContinueTimeout: 5 * time.Second,
 	})
-
-	liga := ""
-	start := time.Now()
-	cons := 0
-	eventodds := make([]string, 3, 5)
-	var data [][]string
-
-	// Write CSV header
 
 	c.OnHTML(`div#USInplay-tab-FOOT div.table-row.row-wrap`, func(e *colly.HTMLElement) {
 
