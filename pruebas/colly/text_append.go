@@ -11,6 +11,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	stat
+
 	if _, err := f.WriteString("appended some data\n"); err != nil {
 		f.Close() // ignore error; Write error takes precedence
 		log.Fatal(err)

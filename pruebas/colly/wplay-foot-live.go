@@ -48,7 +48,6 @@ func main() {
 	var data [][]string
 
 	// Write CSV header
-	//fmt.Println("#", "TimeStamp", "BettingHouse", "League_Tournament", "EventID", "EventName", "EventScore", "EventTime", "EventPeriod", "OddsLocal", "OddsDraw", "OddsVisitor")
 
 	c.OnHTML(`div#USInplay-tab-FOOT div.table-row.row-wrap`, func(e *colly.HTMLElement) {
 
@@ -88,8 +87,12 @@ func main() {
 
 	c.Visit("https://apuestas.wplay.co/es")
 
-	//fmt.Println(data)
 	writer.WriteAll(data)
+
+	//fmt.Println("#", "TimeStamp", "BettingHouse", "League_Tournament", "EventID", "EventName", "EventScore", "EventTime", "EventPeriod", "OddsLocal", "OddsDraw", "OddsVisitor")
+	//for i, line := range data {
+	//	fmt.Println(i, line)
+	//}
 
 	log.Printf("Scraping finished, check file %q for results\n", fName)
 
