@@ -4,8 +4,6 @@ import (
 	"encoding/csv"
 	"fmt"
 	"log"
-	"net"
-	"net/http"
 	"os"
 	"strings"
 	"time"
@@ -34,19 +32,6 @@ func main() {
 
 	c := colly.NewCollector()
 
-	c.WithTransport(&http.Transport{
-		Proxy: http.ProxyFromEnvironment,
-		DialContext: (&net.Dialer{
-			Timeout:   30 * time.Second,
-			KeepAlive: 30 * time.Second,
-			DualStack: true,
-		}).DialContext,
-		MaxIdleConns:          100,
-		IdleConnTimeout:       90 * time.Second,
-		TLSHandshakeTimeout:   25 * time.Second,
-		ExpectContinueTimeout: 5 * time.Second,
-	})
-
 	c.OnHTML(`div#USInplay-tab-FOOT div.table-row.row-wrap`, func(e *colly.HTMLElement) {
 
 		if e.DOM.Children().Length() == 1 {
@@ -66,7 +51,7 @@ func main() {
 			})
 
 			data = append(data, []string{
-				timestamp.Format(time.RubyDate),
+				timestamp.Format(time.RFC822Z),
 				"WPlay",
 				liga,
 				eventid,
