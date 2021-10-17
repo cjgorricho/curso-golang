@@ -6,7 +6,7 @@
 #
 #------------------------------------------------------------------------------------------
 
-# Reminf crontab of the path 
+# Remind crontab of the path 
 
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin
 

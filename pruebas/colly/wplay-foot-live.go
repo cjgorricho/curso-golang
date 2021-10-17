@@ -72,10 +72,10 @@ func main() {
 
 	writer.WriteAll(data)
 
-	//fmt.Println("#", "TimeStamp", "BettingHouse", "League_Tournament", "EventID", "EventName", "EventScore", "EventTime", "EventPeriod", "OddsLocal", "OddsDraw", "OddsVisitor")
-	//for i, line := range data {
-	//	fmt.Println(i, line)
-	//}
+	fmt.Println("#", "TimeStamp", "BettingHouse", "League_Tournament", "EventID", "EventName", "EventScore", "EventTime", "EventPeriod", "OddsLocal", "OddsDraw", "OddsVisitor")
+	for i, line := range data {
+		fmt.Println(i, line)
+	}
 
 	log.Printf("Scraping finished, check file %q for results\n", fName)
 
