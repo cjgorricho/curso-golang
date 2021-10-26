@@ -78,7 +78,7 @@ func main() {
 
 			//fmt.Println(id)
 
-			err = client.Set(id.String(), json).Err()
+			err = client.Set(id.String(), json, 0).Err()
 			if err != nil {
 				fmt.Println(err)
 			}

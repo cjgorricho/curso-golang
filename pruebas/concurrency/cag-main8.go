@@ -18,13 +18,17 @@ func main() {
 
 	limite := 10
 
+	// Creación de números aleatorios
+
 	for i := 1; i <= limite; i++ {
 		r := rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(math.MaxInt32)
 		time.Sleep(5 * time.Nanosecond)
 		aleatorio = append(aleatorio, r)
 	}
-	fmt.Println(aleatorio)
+	fmt.Println(aleatorio) // Imprime el slice con los número aleatorios
 	fmt.Println()
+
+	// Imprime las rutinas de trabajo de forma secuencial
 
 	start := time.Now()
 	fmt.Println("Imprimiendo serie secuencial")
@@ -33,6 +37,8 @@ func main() {
 		fmt.Printf("%v\ttiempo: %v\t\n", i, time.Duration(aleatorio[i-1]))
 	}
 	fmt.Printf("Tiempo total secuencial: %.3f s\n\n", time.Since(start).Seconds())
+
+	// Imprime las rutinas de trabajo de forma concurrente usando go funcs
 
 	start1 := time.Now()
 	fmt.Println("Imprimiendo serie concurrente")
@@ -44,6 +50,8 @@ func main() {
 	fmt.Printf("Tiempo total concurrente: %.3f s\n\n", time.Since(start1).Seconds())
 
 }
+
+// La función imprimer controla la concurrencia con Wait groups y con Mutexes
 
 func imprimir(ind int, ale int32) {
 	time.Sleep(time.Duration(ale)) // payload
