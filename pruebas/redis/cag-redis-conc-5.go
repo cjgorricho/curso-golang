@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -26,6 +27,8 @@ var names = []string{
 
 var wg sync.WaitGroup
 
+//var mu sync.Mutex
+
 func main() {
 
 	start := time.Now()
@@ -33,7 +36,7 @@ func main() {
 	client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "",
-		DB:       0,
+		DB:       1,
 	})
 
 	//fmt.Println(names)
@@ -54,20 +57,25 @@ func main() {
 				Age:  ag,
 			}
 
-			id := "ID-H"
+			var id strings.Builder
+			id.WriteString("ID-Hash")
+
 			for {
-				id += "0"
-				if len(id)+len(string(strconv.Itoa(ind))) == 10 {
-					id += strconv.Itoa(ind)
+				id.WriteString("0")
+				if id.Len()+len(string(strconv.Itoa(ind))) == 10 {
+					id.WriteString(strconv.Itoa(ind))
 					break
 				}
 			}
 
 			//fmt.Println(id)
 
-			err := client.HMSet(id, map[string]interface{}{"Name": field.Name, "Age": field.Age}).Err()
+			//mu.Lock()
+			arg := 
+			err := client.HMSet(id.String(), map[string]interface{}{"Name": field.Name, "Age": field.Age}).Err()
+			//mu.Unlock()
 			if err != nil {
-				fmt.Println(err)
+				fmt.Println("Error escribiendo a la BD: ", err)
 			}
 			wg.Done()
 		}(i)
@@ -76,7 +84,7 @@ func main() {
 
 	wg.Wait()
 
-	fmt.Printf("\nTiempo ejecución: %v ms\n", time.Since(start).Milliseconds())
+	fmt.Printf("\nTiempo ejecución: %v ms\n", time.Since(start).Seconds())
 
 	//val, err := client.Get("id1234").Result()
 	//if err != nil {

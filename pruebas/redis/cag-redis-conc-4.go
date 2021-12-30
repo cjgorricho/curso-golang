@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -35,7 +36,7 @@ func main() {
 	client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "",
-		DB:       0,
+		DB:       1,
 	})
 
 	//fmt.Println(names)
@@ -66,12 +67,20 @@ func main() {
 					fmt.Println(err)
 				}
 
-				id := "ID-Zset"
-				id += strconv.Itoa(ind)
+				var id strings.Builder
+				id.WriteString("ID-Zset")
+
+				for {
+					id.WriteString("0")
+					if id.Len()+len(string(strconv.Itoa(ind))) == 10 {
+						id.WriteString(strconv.Itoa(ind))
+						break
+					}
+				}
 
 				//fmt.Println(id)
 
-				err = client.ZAdd(id, redis.Z{score, json}).Err()
+				err = client.ZAdd(id.String(), redis.Z{score, json}).Err()
 				if err != nil {
 					fmt.Println(err)
 				}
@@ -82,7 +91,7 @@ func main() {
 	}
 	wg.Wait()
 
-	fmt.Printf("\nTiempo ejecución: %v ms\n", time.Since(start).Milliseconds())
+	fmt.Printf("\nTiempo ejecución: %v ms\n", time.Since(start).Seconds())
 
 	//val, err := client.Get("id1234").Result()
 	//if err != nil {

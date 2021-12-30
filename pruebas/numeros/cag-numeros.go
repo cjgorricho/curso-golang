@@ -80,7 +80,7 @@ var wg sync.WaitGroup
 var mu sync.Mutex
 
 func main() {
-	limite := 10
+	limite := 25
 	for i := 0; i < limite; i++ {
 		r := rand.New(rand.NewSource(time.Now().UnixNano())).Intn(math.MaxInt64)
 		time.Sleep(5 * time.Microsecond)
